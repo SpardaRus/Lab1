@@ -1,9 +1,8 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class MyList <E> {
+public class MyList<E> {
 
-    private Object[] elementData=new Object[1];
+    private Object[] elementData = new Object[1];
     private int size;
 
     public int size() {
@@ -18,32 +17,39 @@ public class MyList <E> {
     }
 
 
-
     public void add(E e) {
-            size++;
-            Object[] elementTemp=new Object[size];
+        size++;
+        Object[] elementTemp = new Object[size];
 
-            for(int i=0;i<size-1;i++) elementTemp[i]=elementData[i];
+        for (int i = 0; i < size - 1; i++) elementTemp[i] = elementData[i];
 
-            elementData=elementTemp;
-            elementData[size-1] = e;
+        elementData = elementTemp;
+        elementData[size - 1] = e;
+        try {
             Arrays.sort(elementData);
+        } catch (Exception b) {
+            System.out.println(b);
+        }
 
     }
 
-    public void remove(int index){
+    public void remove(int index) {
         rangeCheck(index);
-        elementData[index]=elementData[elementData.length-1];
+        elementData[index] = elementData[elementData.length - 1];
         size--;
-        Object[] elementTemp=new Object[size];
+        Object[] elementTemp = new Object[size];
 
-        for(int i=0;i<size;i++) elementTemp[i]=elementData[i];
+        for (int i = 0; i < size; i++) elementTemp[i] = elementData[i];
 
-        elementData=new Object[size];
+        elementData = new Object[size];
 
-        elementData=elementTemp;
+        elementData = elementTemp;
+        try {
+            Arrays.sort(elementData);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
-        Arrays.sort(elementData);
     }
 
 
@@ -53,7 +59,7 @@ public class MyList <E> {
     }
 
     private String outOfBoundsMsg(int index) {
-        return "Index: "+index+", Size: "+size;
+        return "Index: " + index + ", Size: " + size;
     }
 
 
@@ -62,13 +68,12 @@ public class MyList <E> {
     }
 
 
-
     @Override
     public String toString() {
-        String s="";
-        for(Object i: elementData)
-            s=s+", "+i;
-         s=s.substring(2,s.length());
+        String s = "";
+        for (Object i : elementData)
+            s = s + ", " + i;
+        s = s.substring(2, s.length());
         return s;
     }
 }
