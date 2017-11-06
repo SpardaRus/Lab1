@@ -4,87 +4,65 @@ public class MyList<E> {
 
     private Object[] elementData = new Object[1];
     private int size;
-
     public int size() {
         return size;
     }
 
-
     public E get(int index) {
         rangeCheck(index);
-
         return elementData(index);
     }
-
 
     public void add(E e) {
         size++;
         Object[] elementTemp = new Object[size];
-
-        for (int i = 0; i < size - 1; i++) elementTemp[i] = elementData[i];
-
+        for (int i = 0; i < size - 1; i++) {
+            elementTemp[i] = elementData[i];
+        }
         elementData = elementTemp;
         elementData[size - 1] = e;
-        try {
-            Arrays.sort(elementData);
-        } catch (Exception b) {
-            System.out.println(b);
-        }
-
+        sort();
     }
 
-
-    public boolean remove(int index) {
-        if (index >= size)
-            return false;
-
-        elementData[index] = elementData[elementData.length - 1];
-        size--;
-        Object[] elementTemp = new Object[size];
-
-        for (int i = 0; i < size; i++) elementTemp[i] = elementData[i];
-
-        elementData = new Object[size];
-
-        elementData = elementTemp;
+    private void sort() {
         try {
             Arrays.sort(elementData);
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
 
+    public boolean remove(int index) {
+        if (index >= size){
+            return false;
+        }
+        elementData[index] = elementData[elementData.length - 1];
+        size--;
+        Object[] elementTemp = new Object[size];
+
+        for (int i = 0; i < size; i++) {
+            elementTemp[i] = elementData[i];
+        }
+        elementData = new Object[size];
+        elementData = elementTemp;
+        sort();
         return true;
     }
 
     public boolean remove(Object o) {
         int index = 0;
-
-        boolean b = false;
         for (int i = 0; i < elementData.length; i++) {
-
             if (elementData[i].equals(o)) {
-
-                index = i;
-
-            } else {
-                b = true;
-
+                return remove(i);
             }
-
         }
-        if (!b)
             return false;
-        else
-            return remove(index);
-
     }
 
     public void clear() {
-
-
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size; i++) {
             elementData[i] = null;
-
+        }
         size = 0;
     }
 
@@ -93,8 +71,9 @@ public class MyList<E> {
     }
 
     private void rangeCheck(int index) {
-        if (index >= size)
+        if (index >= size){
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+        }
     }
 
     private String outOfBoundsMsg(int index) {
@@ -108,13 +87,17 @@ public class MyList<E> {
 
     public int indexOf(Object o) {
         if (o == null) {
-            for (int i = 0; i < size; i++)
-                if (elementData[i] == null)
+            for (int i = 0; i < size; i++){
+                if (elementData[i] == null){
                     return i;
+                }
+            }
         } else {
-            for (int i = 0; i < size; i++)
-                if (o.equals(elementData[i]))
+            for (int i = 0; i < size; i++) {
+                if (o.equals(elementData[i])){
                     return i;
+                }
+            }
         }
         return -1;
     }
@@ -125,13 +108,17 @@ public class MyList<E> {
 
     public int lastIndexOf(Object o) {
         if (o == null) {
-            for (int i = size - 1; i >= 0; i--)
-                if (elementData[i] == null)
+            for (int i = size - 1; i >= 0; i--){
+                if (elementData[i] == null){
                     return i;
+                }
+            }
         } else {
-            for (int i = size - 1; i >= 0; i--)
-                if (o.equals(elementData[i]))
+            for (int i = size - 1; i >= 0; i--){
+                if (o.equals(elementData[i])){
                     return i;
+                }
+            }
         }
         return -1;
     }
@@ -140,12 +127,15 @@ public class MyList<E> {
     @Override
     public String toString() {
         String s = "";
-        for (Object i : elementData)
+        for (Object i : elementData){
             s = s + ", " + i;
+        }
         s = s.substring(2, s.length());
-        if (size == 0)
+        if (size == 0){
             return "null";
-        else
+        }
+        else{
             return s;
+        }
     }
 }
