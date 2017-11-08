@@ -1,6 +1,7 @@
+import java.util.AbstractCollection;
 import java.util.Arrays;
 
-public class MyList<E> {
+public class MyList<E>  {
 
     private Object[] elementData = new Object[1];
     private int size;
