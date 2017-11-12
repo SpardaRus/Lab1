@@ -1,32 +1,42 @@
-public class MySort{
-    public <E extends Comparable> void sort(E[] array) {
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
-        int h = 1;
-        while (h * 3 < array.length)
-            h = h * 3 + 1;
+public class MySort {
 
-        while (h >= 1) {
-            hSort(array, h);
-            h = h / 3;
-        }
-
+    public static Comparable[] sort(Comparable[] a){
+        SortUnsorted(a,0,a.length-1);
+        return a;
     }
+    private static void SortUnsorted(Comparable[] a, int lo, int hi) {
 
-    private void hSort(Comparable[] array, int h) {
-        int length = array.length;
-        for (int i = h; i < length; i++) {
-            for (int j = i; j >= h; j = j - h) {
-                if (array[j].compareTo( array[j - h])<0)
+        if (hi <= lo)
+            return;
+        int mid = lo + (hi - lo) / 2;
+        SortUnsorted(a, lo, mid);
+        SortUnsorted(a, mid + 1, hi);
 
-                    swap(array, j, j - h);
-                else
-                    break;
+        Comparable[] buf = Arrays.copyOf(a, a.length);
+
+
+        for (int k = lo; k <= hi; k++)
+            buf[k] = a[k];
+
+        int i = lo, j = mid + 1;
+        for (int k = lo; k <= hi; k++) {
+
+            if (i > mid) {
+                a[k] = buf[j];
+                j++;
+            } else if (j > hi) {
+                a[k] = buf[i];
+                i++;
+            } else if (buf[j].compareTo(buf[i])<0) {
+                a[k] = buf[j];
+                j++;
+            } else {
+                a[k] = buf[i];
+                i++;
             }
         }
-    }
-    private static void swap(Comparable[] array, int i, int j) {
-        Comparable temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
     }
 }

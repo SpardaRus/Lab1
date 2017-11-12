@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -211,18 +212,15 @@ public class MyList<E> extends AbstractList<E> implements List<E>, RandomAccess,
 
 
     private void sorts(){
-        try{ MySort s=new MySort();
+        try{
+            Comparable[] elementTemp=new Comparable[size()];
+            for (int i = 0; i < size(); i++) {
+                elementTemp[i] = (Comparable)elementData[i];
+            }
+            elementData=MySort.sort(elementTemp);
 
-        Comparable[] elementTemp = new Comparable[size];
-        for (int i = 0; i < size(); i++) {
-            elementTemp[i] = (Comparable)elementData[i];
-        }
-
-        s.sort(elementTemp);
-
-        elementData = elementTemp;
         }catch(Exception e){
-            System.out.println("Class '"+elementData(0).getClass().getName()+"' must implements Comparable. Object '"+elementData(0).getClass().getName()+"' inserted in the order");
+             System.out.println("Class '"+elementData(0).getClass().getName()+"' must implements Comparable. Object '"+elementData(0).getClass().getName()+"' inserted in the order");
         }
     }
 
