@@ -213,11 +213,15 @@ public class MyList<E> extends AbstractList<E> implements List<E>, RandomAccess,
 
     private void sorts(){
         try{
+
             Comparable[] elementTemp=new Comparable[size()];
             for (int i = 0; i < size(); i++) {
                 elementTemp[i] = (Comparable)elementData[i];
             }
-            elementData=MySort.sort(elementTemp);
+            MultiMerger ms=new MultiMerger(elementTemp);
+            ms.run();
+
+            elementData=ms.getSorted();
 
         }catch(Exception e){
              System.out.println("Class '"+elementData(0).getClass().getName()+"' must implements Comparable. Object '"+elementData(0).getClass().getName()+"' inserted in the order");
